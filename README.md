@@ -13,6 +13,14 @@ Start Events, Tasks, Exclusive Gateways,multiple paths and End Events to represe
 
 Repository structure :
 
+ README.md                             
+── BPMN assignment                   ->  (all 3 scenario of BPMN block diagrams)
+    ── scenario1-leave-approval.bpmn
+    ── scenario2-purchase-order.bpmn
+    ── scenario3-it-service-request.bpmn
+─- image 
+     ── PNG  screenshots of each diagram from safety
+
 
 Scenario 1: Employee Leave Approval
 
