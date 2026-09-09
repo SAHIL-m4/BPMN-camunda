@@ -50,3 +50,14 @@ The process begins when the customer submits a loan application. The bank verifi
 📄Scenario 3: Job Applicant Recruitment Process 
 This BPMN model represents the recruitment process for a job application received by a company's HR department.
 The process starts when a candidate submits an application online. The HR system screens the application against the minimum eligibility criteria. Candidates who do not meet the criteria receive a rejection notification. Eligible candidates proceed to a technical interview. Candidates who pass the technical interview proceed to the HR/managerial round. If the candidate is selected, an offer letter is generated and sent to the candidate. Candidates who are rejected at any stage receive a rejection notification.
+
+📙 Experiment 3 :
+
+📄 Scenario: Employee Leave Request Approval System
+XYZ Corp wants to automate its employee leave approval process using Camunda 8. The business rules are as follows:
+An employee submits a leave request specifying the leave type (Casual, Sick, or Earned) & number of days.
+If the leave type is Sick and days ≤ 3, it is auto-approved without manager review.
+If the leave type is Casual/ Earned / if Sick leave exceeds 3 days it must be routed to the employee's direct manager approval.
+If the manager rejects the request, the employee is notified and the process ends.
+If approved, the request is forwarded to HR for record-keeping, and the employee's leave balance is updated.
+If the employee's requested days exceed their available leave balance at any point, the process should reject the request immediately with a "Insufficient Balance" message, before it reaches the manage.
