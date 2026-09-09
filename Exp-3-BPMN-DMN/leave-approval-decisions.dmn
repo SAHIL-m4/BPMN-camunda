@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+             xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+             id="Definitions_LeaveDecisions"
+             name="LeaveDecisions"
+             namespace="http://camunda.org/schema/1.0/dmn"
+             exporter="Claude"
+             exporterVersion="1.0">
+
+  <decision id="Leave_Balance_Check" name="Leave Balance Check">
+    <decisionTable id="DecisionTable_BalanceCheck" hitPolicy="UNIQUE">
+      <input id="Input_RequestedDays" label="Requested Days">
+        <inputExpression id="InputExpr_RequestedDays" typeRef="number">
+          <text>requestedDays</text>
+        </inputExpression>
+      </input>
+      <input id="Input_AvailableBalance" label="Available Balance">
+        <inputExpression id="InputExpr_AvailableBalance" typeRef="number">
+          <text>availableBalance</text>
+        </inputExpression>
+      </input>
+      <output id="Output_BalanceSufficient" label="Balance Sufficient" name="balanceSufficient" typeRef="boolean" />
+      <output id="Output_RejectionReason" label="Rejection Reason" name="rejectionReason" typeRef="string" />
+
+      <rule id="Rule_BalanceOk">
+        <inputEntry id="InEntry_1_1"><text>&lt;= availableBalance</text></inputEntry>
+        <inputEntry id="InEntry_1_2"><text>-</text></inputEntry>
+        <outputEntry id="OutEntry_1_1"><text>true</text></outputEntry>
+        <outputEntry id="OutEntry_1_2"><text>null</text></outputEntry>
+      </rule>
+
+      <rule id="Rule_BalanceInsufficient">
+        <inputEntry id="InEntry_2_1"><text>&gt; availableBalance</text></inputEntry>
+        <inputEntry id="InEntry_2_2"><text>-</text></inputEntry>
+        <outputEntry id="OutEntry_2_1"><text>false</text></outputEntry>
+        <outputEntry id="OutEntry_2_2"><text>"Insufficient Balance"</text></outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+
+  <decision id="Leave_Approval_Routing" name="Leave Approval Routing">
+    <decisionTable id="DecisionTable_ApprovalRouting" hitPolicy="UNIQUE">
+      <input id="Input_LeaveType" label="Leave Type">
+        <inputExpression id="InputExpr_LeaveType" typeRef="string">
+          <text>leaveType</text>
+        </inputExpression>
+      </input>
+      <input id="Input_Days" label="Days">
+        <inputExpression id="InputExpr_Days" typeRef="number">
+          <text>requestedDays</text>
+        </inputExpression>
+      </input>
+      <output id="Output_AutoApproved" label="Auto Approved" name="autoApproved" typeRef="boolean" />
+      <output id="Output_ApprovalRequired" label="Approval Required" name="approvalRequired" typeRef="boolean" />
+
+      <rule id="Rule_SickShort">
+        <inputEntry id="InEntry_3_1"><text>"Sick"</text></inputEntry>
+        <inputEntry id="InEntry_3_2"><text>&lt;= 3</text></inputEntry>
+        <outputEntry id="OutEntry_3_1"><text>true</text></outputEntry>
+        <outputEntry id="OutEntry_3_2"><text>false</text></outputEntry>
+      </rule>
+
+      <rule id="Rule_SickLong">
+        <inputEntry id="InEntry_4_1"><text>"Sick"</text></inputEntry>
+        <inputEntry id="InEntry_4_2"><text>&gt; 3</text></inputEntry>
+        <outputEntry id="OutEntry_4_1"><text>false</text></outputEntry>
+        <outputEntry id="OutEntry_4_2"><text>true</text></outputEntry>
+      </rule>
+
+      <rule id="Rule_Casual">
+        <inputEntry id="InEntry_5_1"><text>"Casual"</text></inputEntry>
+        <inputEntry id="InEntry_5_2"><text>-</text></inputEntry>
+        <outputEntry id="OutEntry_5_1"><text>false</text></outputEntry>
+        <outputEntry id="OutEntry_5_2"><text>true</text></outputEntry>
+      </rule>
+
+      <rule id="Rule_Earned">
+        <inputEntry id="InEntry_6_1"><text>"Earned"</text></inputEntry>
+        <inputEntry id="InEntry_6_2"><text>-</text></inputEntry>
+        <outputEntry id="OutEntry_6_1"><text>false</text></outputEntry>
+        <outputEntry id="OutEntry_6_2"><text>true</text></outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+
+</definitions>
