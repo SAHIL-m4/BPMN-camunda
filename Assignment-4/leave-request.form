@@ -1,0 +1,36 @@
+{
+  "components": [
+    {
+      "key": "name",
+      "label": "Name",
+      "type": "textfield",
+      "id": "Field_Name",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "key": "leaveDate",
+      "label": "Leave Date",
+      "type": "datetime",
+      "id": "Field_LeaveDate",
+      "date": true,
+      "time": false,
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "key": "reason",
+      "label": "Reason",
+      "type": "textarea",
+      "id": "Field_Reason",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_LeaveRequest",
+  "schemaVersion": 16
+}
