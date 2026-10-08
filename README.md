@@ -61,3 +61,25 @@ If the leave type is Casual/ Earned / if Sick leave exceeds 3 days it must be ro
 If the manager rejects the request, the employee is notified and the process ends.
 If approved, the request is forwarded to HR for record-keeping, and the employee's leave balance is updated.
 If the employee's requested days exceed their available leave balance at any point, the process should reject the request immediately with a "Insufficient Balance" message, before it reaches the manage.
+
+📙 Experiment 4: 
+
+Process: Start Event → Submit Leave Request (User Task + Form) → End Event
+Form fields:
+1. Name — key: name
+2. Leave Date — key: leaveDate
+3. Reason — key: reason
+Procedure:
+1. Open leave-request.bpmn in Camunda Modeler.
+2. Confirm the User Task is named "Submit Leave Request".
+3. Confirm its form reference is Form_LeaveRequest.
+4. Open/import leave-request.form as the form definition if your Modeler version requires the form to be created/imported separately.
+5. Deploy the BPMN process and form to Camunda 8.
+6. Start a process instance in Tasklist.
+7. Claim "Submit Leave Request".
+8. Fill the form, for example:
+   Name: Sahil
+   Leave Date: 2026-10-15
+   Reason: Personal work
+9. Complete the task.
+10. Open the process instance in Operate and check Variables.
