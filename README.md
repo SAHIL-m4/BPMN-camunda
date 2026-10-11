@@ -83,3 +83,11 @@ Procedure:
    Reason: Personal work
 9. Complete the task.
 10. Open the process instance in Operate and check Variables.
+
+📙 Experiment 5 : 
+
+Student Leave Workflow Lab -
+
+Students build a Student Leave Application process that runs on a Camunda 8 SaaS cluster, with all the business logic in a SpringBoot app on their laptop. It covers the four things every Camunda 8 + Spring project needs: deploying a model from code,
+starting an instance over REST, running service tasks as job workers, and a human task in Tasklist
+
