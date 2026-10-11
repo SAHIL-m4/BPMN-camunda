@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+# Replace the four placeholders with values from Camunda Console.
+# Never share or commit your client secret.
+camunda:
+  client:
+    mode: saas
+    auth:
+      client-id: YOUR_CLIENT_ID
+      client-secret: YOUR_CLIENT_SECRET
+    cloud:
+      cluster-id: YOUR_CLUSTER_ID
+      region: YOUR_REGION

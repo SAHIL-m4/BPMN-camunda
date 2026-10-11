@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+  xmlns:zeebe="http://camunda.org/schema/zeebe/1.0"
+  id="Definitions_StudentLeave"
+  targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:process id="student-leave" name="Student Leave Application" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_LeaveRequested" name="Leave requested">
+      <bpmn:outgoing>Flow_Start_Validate</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Task_ValidateLeave" name="Validate leave request">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="validate-leave" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Start_Validate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Validate_Gateway</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_Route" name="Valid and duration?" default="Flow_Invalid">
+      <bpmn:incoming>Flow_Validate_Gateway</bpmn:incoming>
+      <bpmn:outgoing>Flow_Short_Merge</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Long_Advisor</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Invalid</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_Start_Validate" sourceRef="StartEvent_LeaveRequested" targetRef="Task_ValidateLeave" />
+    <bpmn:sequenceFlow id="Flow_Validate_Gateway" sourceRef="Task_ValidateLeave" targetRef="Gateway_Route" />
+    <bpmn:sequenceFlow id="Flow_Short_Merge" name="Valid, 2 days or less" sourceRef="Gateway_Route" targetRef="Gateway_Merge">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">=valid and leaveDays &lt;= 2</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Long_Advisor" name="Valid, over 2 days" sourceRef="Gateway_Route" targetRef="Task_FacultyApproval">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">=valid and leaveDays &gt; 2</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Invalid" name="Invalid dates" sourceRef="Gateway_Route" targetRef="Gateway_Merge">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">=not(valid)</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:userTask id="Task_FacultyApproval" name="Faculty Advisor approval">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formId="fa-approval-form" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Long_Advisor</bpmn:incoming>
+      <bpmn:outgoing>Flow_Advisor_Merge</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_Advisor_Merge" sourceRef="Task_FacultyApproval" targetRef="Gateway_Merge" />
+    <bpmn:exclusiveGateway id="Gateway_Merge" name="Merge paths">
+      <bpmn:incoming>Flow_Short_Merge</bpmn:incoming>
+      <bpmn:incoming>Flow_Invalid</bpmn:incoming>
+      <bpmn:incoming>Flow_Advisor_Merge</bpmn:incoming>
+      <bpmn:outgoing>Flow_Merge_Notify</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Task_NotifyStudent" name="Notify student">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="notify-student" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_Merge_Notify</bpmn:incoming>
+      <bpmn:outgoing>Flow_Notify_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Merge_Notify" sourceRef="Gateway_Merge" targetRef="Task_NotifyStudent" />
+    <bpmn:endEvent id="EndEvent_LeaveFinished" name="Leave request finished">
+      <bpmn:incoming>Flow_Notify_End</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_Notify_End" sourceRef="Task_NotifyStudent" targetRef="EndEvent_LeaveFinished" />
+  </bpmn:process>
+</bpmn:definitions>

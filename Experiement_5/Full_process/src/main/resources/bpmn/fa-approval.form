@@ -1,0 +1,67 @@
+{
+  "components": [
+    {
+      "label": "Student Leave Request",
+      "type": "text",
+      "layout": {
+        "row": "Row_StudentTitle",
+        "columns": null
+      },
+      "id": "Field_Title",
+      "text": "## Faculty Advisor Approval\\n\\nReview the student details below, then approve or reject the leave request."
+    },
+    {
+      "label": "Student name",
+      "type": "textfield",
+      "key": "studentName",
+      "id": "Field_StudentName",
+      "readonly": true
+    },
+    {
+      "label": "Registration number",
+      "type": "textfield",
+      "key": "regNo",
+      "id": "Field_RegNo",
+      "readonly": true
+    },
+    {
+      "label": "From date",
+      "type": "textfield",
+      "key": "fromDate",
+      "id": "Field_FromDate",
+      "readonly": true
+    },
+    {
+      "label": "To date",
+      "type": "textfield",
+      "key": "toDate",
+      "id": "Field_ToDate",
+      "readonly": true
+    },
+    {
+      "label": "Reason for leave",
+      "type": "textfield",
+      "key": "reason",
+      "id": "Field_Reason",
+      "readonly": true
+    },
+    {
+      "label": "Approve this leave",
+      "type": "checkbox",
+      "key": "approved",
+      "id": "Field_Approved",
+      "defaultValue": false
+    },
+    {
+      "label": "Remarks",
+      "type": "textarea",
+      "key": "remarks",
+      "id": "Field_Remarks",
+      "description": "Enter the reason for approval or rejection."
+    }
+  ],
+  "type": "default",
+  "id": "fa-approval-form",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.8.0"
+}
