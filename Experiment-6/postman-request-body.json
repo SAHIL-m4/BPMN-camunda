@@ -1,0 +1,7 @@
+{
+  "processDefinitionId": "leave-request",
+  "variables": {
+    "employeeName": "Ravi",
+    "days": 3
+  }
+}
