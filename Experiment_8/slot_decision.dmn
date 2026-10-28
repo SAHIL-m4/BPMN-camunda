@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="slot_decision_definitions" name="slot_decision" namespace="http://camunda.org/schema/1.0/dmn">
+<decision id="slot_decision" name="slot_decision">
+<decisionTable id="DecisionTable_1" hitPolicy="UNIQUE">
+<input id="Input_1" label="department"><inputExpression id="IE_1" typeRef="string"><text>department</text></inputExpression></input>
+<input id="Input_2" label="bookedCount"><inputExpression id="IE_2" typeRef="number"><text>bookedCount</text></inputExpression></input>
+<output id="Output_1" label="slotStatus" name="slotStatus" typeRef="string" />
+<output id="Output_2" label="suggestedAction" name="suggestedAction" typeRef="string" />
+<rule id="Rule_1"><inputEntry id="R1_i1"><text>"Cardiology"</text></inputEntry><inputEntry id="R1_i2"><text>&gt;= 10</text></inputEntry><outputEntry id="R1_o1"><text>"FULL"</text></outputEntry><outputEntry id="R1_o2"><text>"Offer waitlist or another day"</text></outputEntry></rule>
+<rule id="Rule_2"><inputEntry id="R2_i1"><text>"Cardiology"</text></inputEntry><inputEntry id="R2_i2"><text>&lt; 10</text></inputEntry><outputEntry id="R2_o1"><text>"AVAILABLE"</text></outputEntry><outputEntry id="R2_o2"><text>"Confirm booking"</text></outputEntry></rule>
+<rule id="Rule_3"><inputEntry id="R3_i1"><text>"Neurology"</text></inputEntry><inputEntry id="R3_i2"><text>&gt;= 8</text></inputEntry><outputEntry id="R3_o1"><text>"FULL"</text></outputEntry><outputEntry id="R3_o2"><text>"Offer waitlist or another day"</text></outputEntry></rule>
+<rule id="Rule_4"><inputEntry id="R4_i1"><text>"Neurology"</text></inputEntry><inputEntry id="R4_i2"><text>&lt; 8</text></inputEntry><outputEntry id="R4_o1"><text>"AVAILABLE"</text></outputEntry><outputEntry id="R4_o2"><text>"Confirm booking"</text></outputEntry></rule>
+<rule id="Rule_5"><inputEntry id="R5_i1"><text>not("Cardiology","Neurology")</text></inputEntry><inputEntry id="R5_i2"><text>&gt;= 15</text></inputEntry><outputEntry id="R5_o1"><text>"FULL"</text></outputEntry><outputEntry id="R5_o2"><text>"Offer waitlist or another day"</text></outputEntry></rule>
+<rule id="Rule_6"><inputEntry id="R6_i1"><text>not("Cardiology","Neurology")</text></inputEntry><inputEntry id="R6_i2"><text>&lt; 15</text></inputEntry><outputEntry id="R6_o1"><text>"AVAILABLE"</text></outputEntry><outputEntry id="R6_o2"><text>"Confirm booking"</text></outputEntry></rule>
+</decisionTable>
+</decision>
+<dmndi:DMNDI><dmndi:DMNDiagram id="DMNDiagram_1"><dmndi:DMNShape id="DMNShape_1" dmnElementRef="slot_decision"><dc:Bounds height="80" width="180" x="150" y="80" /></dmndi:DMNShape></dmndi:DMNDiagram></dmndi:DMNDI>
+</definitions>
