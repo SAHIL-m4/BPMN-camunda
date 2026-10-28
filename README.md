@@ -95,3 +95,15 @@ starting an instance over REST, running service tasks as job workers, and a huma
 
 Create a simple Leave Request process in Camunda 8, then start it using a REST API call from Postman
 
+📙 Experiment 7 : 
+
+
+
+
+
+
+📙 Experiment 8 : 
+
+A hospital runs an appointment-booking process. A patient submits a booking request with patientId, patientName, department and preferredSlot
+
+
