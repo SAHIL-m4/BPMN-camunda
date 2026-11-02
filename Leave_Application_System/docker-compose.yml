@@ -1,0 +1,16 @@
+services:
+ backend:
+  build:
+   context: .
+   dockerfile: docker/backend.Dockerfile
+  ports: ["8081:8081"]
+  environment:
+   CAMUNDA_REST_ADDRESS: ${CAMUNDA_REST_ADDRESS:-http://host.docker.internal:8080}
+   CAMUNDA_GRPC_ADDRESS: ${CAMUNDA_GRPC_ADDRESS:-http://host.docker.internal:26500}
+  extra_hosts: ["host.docker.internal:host-gateway"]
+ frontend:
+  build:
+   context: .
+   dockerfile: docker/frontend.Dockerfile
+  ports: ["3000:3000"]
+  depends_on: [backend]
