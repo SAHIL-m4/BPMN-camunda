@@ -97,10 +97,7 @@ Create a simple Leave Request process in Camunda 8, then start it using a REST A
 
 📙 Experiment 7 : 
 
-
-
-
-
+The Leave Application Management System is a web-based application developed to automate the employee leave application and approval process. Its aim is to make leave management easier, faster, and more efficient by allowing employees to submit leave requests online, validating leave dates and available balances, and enabling managers to approve or reject requests. The system uses React and TypeScript for the frontend, Java 21 and Spring Boot for the backend, Camunda 8 for workflow automation, and an H2 database to store leave records and balances
 
 📙 Experiment 8 : 
 
